@@ -3,7 +3,7 @@ version: '3.3'
 services:
   quickstart.cloudera:
     build: quickstart.cloudera/.
-    #image: sebagonella/cdh:5.7.0
+    image: sebagonella/cdh:5.7.0
     command: /usr/bin/docker-quickstart
     working_dir: /home/cloudera
     ports:
@@ -43,10 +43,17 @@ services:
     tty: true
 
   zeppelin:
-    build: zeppelin/.
+    #build: zeppelin/.
     #image: sebagonella/zeppelin:0.7.2
+    image: apache/zeppelin
     command: /zeppelin/bin/zeppelin.sh
     working_dir: /zeppelin
+    volumes:
+      - logs:/logs
+      - notebook:/notebook
+    environment: 
+      - ZEPPELIN_LOG_DIR='/logs'
+      - ZEPPELIN_NOTEBOOK_DIR='/notebook'
     ports:
       - "8081:8080"
       - "8082:8082"

@@ -5,13 +5,14 @@ ENV APACHE_SPARK_VERSION 1.6.0
 ENV APACHE_HADOOP_VERSION 2.6.5
 
 # Download jdbc Impala
-ADD ./lib/impala_jdbc41.zip /zeppelin/interpreter/jdbc/impala_jdbc41.zip
-ADD ./lib/db2jcc.jar /zeppelin/interpreter/jdbc/db2jcc.jar
-RUN unzip -o /zeppelin/interpreter/jdbc/impala_jdbc41.zip -d /zeppelin/interpreter/jdbc/
+#ADD ./lib/impala_jdbc41.zip /zeppelin/interpreter/jdbc/impala_jdbc41.zip
+#ADD ./lib/db2jcc.jar /zeppelin/interpreter/jdbc/db2jcc.jar
+#RUN unzip -o /zeppelin/interpreter/jdbc/impala_jdbc41.zip -d /zeppelin/interpreter/jdbc/
 
 # hadoop
-RUN curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-${APACHE_HADOOP_VERSION}/hadoop-${APACHE_HADOOP_VERSION}.tar.gz | tar -xz -C /usr/local/
-RUN cd /usr/local && ln -s ./hadoop-${APACHE_HADOOP_VERSION} hadoop
+#RUN echo "http://www.eu.apache.org/dist/hadoop/common/hadoop-${APACHE_HADOOP_VERSION}/hadoop-${APACHE_HADOOP_VERSION}.tar.gz"
+#RUN curl -s "http://www.eu.apache.org/dist/hadoop/common/hadoop-${APACHE_HADOOP_VERSION}/hadoop-${APACHE_HADOOP_VERSION}.tar.gz" | tar -xz -C /usr/local/
+#RUN cd /usr/local && ln -s "./hadoop-${APACHE_HADOOP_VERSION}" hadoop
 
 ENV HADOOP_PREFIX=/usr/local/hadoop
 ENV HADOOP_COMMON_HOME=/usr/local/hadoop
@@ -32,9 +33,9 @@ ADD hadoop-conf/yarn-site.xml /usr/local/hadoop/etc/hadoop
 
 # Download e instalacao Spark
 RUN cd /tmp && \
-        wget -q http://d3kbcqa49mib13.cloudfront.net/spark-${APACHE_SPARK_VERSION}-bin-hadoop2.6.tgz && \
+        wget -q "http://d3kbcqa49mib13.cloudfront.net/spark-${APACHE_SPARK_VERSION}-bin-hadoop2.6.tgz" && \
         echo "439fe7793e0725492d3d36448adcd1db38f438dd1392bffd556b58bb9a3a2601 *spark-${APACHE_SPARK_VERSION}-bin-hadoop2.6.tgz" | sha256sum -c - && \
-        tar xzf spark-${APACHE_SPARK_VERSION}-bin-hadoop2.6.tgz -C /usr/local && \
-        rm spark-${APACHE_SPARK_VERSION}-bin-hadoop2.6.tgz
-RUN cd /usr/local && ln -s spark-${APACHE_SPARK_VERSION}-bin-hadoop2.6 spark
+        tar xzf "spark-${APACHE_SPARK_VERSION}-bin-hadoop2.6.tgz" -C /usr/local && \
+        rm "spark-${APACHE_SPARK_VERSION}-bin-hadoop2.6.tgz"
+RUN cd /usr/local && ln -s "spark-${APACHE_SPARK_VERSION}-bin-hadoop2.6" spark
 
