@@ -2,11 +2,14 @@ version: '3.3'
 
 services:
   quickstart.cloudera:
-    build: quickstart.cloudera/.
-    image: sebagonella/cdh:5.7.0
+    #build: quickstart.cloudera/.
+    image: cloudera/quickstart:latest
     command: /usr/bin/docker-quickstart
     working_dir: /home/cloudera
+    expose:
+      - "7077"
     ports:
+      - "7077:7077"
       - "7180:7180"
       - "8080:8080"
       - "8888:8888"
@@ -36,6 +39,8 @@ services:
       - "50075:50075"
     volumes:
       - ./data/cdh:/data
+    environment:
+      - INIT_DAEMON_STEP=setup_spark
     container_name: "quickstart.cloudera"
     hostname: "quickstart.cloudera"
     privileged: true
@@ -54,6 +59,9 @@ services:
     environment: 
       - ZEPPELIN_LOG_DIR='/logs'
       - ZEPPELIN_NOTEBOOK_DIR='/notebook'
+      - "MASTER=spark://spark-master:7077"
+      - "SPARK_MASTER=spark://spark-master:7077"
+      - "SPARK_HOME=/zeppelin/spark"
     ports:
       - "8081:8080"
       - "8082:8082"
