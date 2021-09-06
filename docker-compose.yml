@@ -54,6 +54,7 @@ services:
     command: /zeppelin/bin/zeppelin.sh
     working_dir: /zeppelin
     volumes:
+      - ./spark:/zeppelin/spark
       - logs:/logs
       - notebook:/notebook
     environment: 
