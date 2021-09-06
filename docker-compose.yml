@@ -50,7 +50,7 @@ services:
   zeppelin:
     #build: zeppelin/.
     #image: sebagonella/zeppelin:0.7.2
-    image: apache/zeppelin
+    image: apache/zeppelin:0.8.0
     command: /zeppelin/bin/zeppelin.sh
     working_dir: /zeppelin
     volumes:
